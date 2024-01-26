@@ -49,7 +49,7 @@ def get_all_lawyers(request):
     queryset = Lawyer.objects.all()
     serializer = LawyerSerializer(queryset, many=True)
     return Response(serializer.data)
-
+    
 @api_view(['GET'])
 def get_lawyer_by_id(request, lawyer_id):
     try:
@@ -58,5 +58,6 @@ def get_lawyer_by_id(request, lawyer_id):
         return Response(serializer.data)
     except Lawyer.DoesNotExist:
         return Response({'error': 'Lawyer not found'})
+
 
 
