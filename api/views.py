@@ -1,10 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from lawyer.models import Lawyer
-from .serializers import LawyerSerializer
+from .serializers import LawyerSerializer,PrendreRendezVousSerializer
+from .models import PrendreRendezVous
 from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+
+
 
 @api_view(['GET'])
 def lawyer_profile_search(request):
@@ -59,4 +63,13 @@ def get_lawyer_by_id(request, lawyer_id):
     except Lawyer.DoesNotExist:
         return Response({'error': 'Lawyer not found'})
 
+@api_view(['GET'])
+def get_appointments_by_lawyer(request, lawyer_id):
+    try:
+        lawyer = get_object_or_404(Lawyer, lawyer_id=lawyer_id)
+        appointments = PrendreRendezVous.objects.filter(laywer_id_id=lawyer)
+        serializer = PrendreRendezVousSerializer(appointments, many=True)
+        return Response(serializer.data)
+    except Lawyer.DoesNotExist:
+        return Response({'error': 'Lawyer not found'})
 
