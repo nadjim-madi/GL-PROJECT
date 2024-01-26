@@ -60,3 +60,38 @@ def get_appointments_by_lawyer(request, lawyer_id):
         return Response({'error': 'Lawyer not found'})
 
 
+
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import PrendreRendezVous
+from .serializers import PrendreRendezVousSerializer
+
+@api_view(['POST']) 
+@authentication_classes([])
+@permission_classes([AllowAny])
+def schedule_appointment(request, lawyer_id):
+    token_key = request.data.get('token', None)
+    time = request.data.get('startTime', None)
+    description = request.data.get('description', '')
+    
+    if token_key:
+        user = Token.objects.filter(key=token_key).first()
+        if not user:
+            return Response({"success": False, "message": "Access denied. Invalid token."})
+    else:
+        return Response({"success": False, "message": "Access denied. Token not provided."})
+    
+    # Assuming you have a ForeignKey relationship between User and PrendreRendezVous
+    prende_rendez_vous = PrendreRendezVous.objects.create(
+        lawyer_id=lawyer_id,
+        id=user,
+        rdate=time,
+        situation=description
+    )
+
+    return Response({"success": True, "message": "Appointment scheduled successfully."})
+
