@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Lawyer
+from lawyer.models import Lawyer
 
 class LawyerSerializer(serializers.ModelSerializer):
     class Meta:
