@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     
     #lawyer
     'lawyer',
+    
+    #user
+    'user',
 
     
 ]
