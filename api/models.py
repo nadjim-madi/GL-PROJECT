@@ -15,6 +15,7 @@ class Lawyer(models.Model):
     password = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     DOB = models.DateField(max_length=255)
+    rating = models.IntegerField(null=True, blank=True)
     class Meta:
         managed = False
         db_table = 'lawyers'
