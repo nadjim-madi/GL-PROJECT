@@ -6,40 +6,26 @@ from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 @api_view(['GET'])
-def lawyer_profile_search(request):
-    query = request.GET.get('query', '')
-    categories = request.GET.getlist('categories')
-    rating = request.GET.get('rating', '')
+def search_lawyers(request):
+    # Get query parameters
+    name = request.GET.get('name', '')
+    location = request.GET.get('location', '')
+    specialization = request.GET.get('specialization', '')
 
-    search_results = Lawyer.objects.all()
+    # Build the queryset based on the provided parameters
+    queryset = Lawyer.objects.filter(
+        Q(first_name__icontains=name) | Q(last_name__icontains=name),
+        Q(address__icontains=location),
+        Q(specialization__icontains=specialization)
+    )
 
-    if query:
-        name_filter = (
-            Q(first_name__icontains=query) |
-            Q(last_name__icontains=query)
-        )
-        address_filter = (
-            Q(address__icontains=query)
-        )
+    # Serialize the queryset
+    serializer = LawyerSerializer(queryset, many=True)
 
-        search_results = search_results.filter(name_filter | address_filter)
+    return Response(serializer.data)
 
-    if categories != ['']:
-        category_filter = Q()
-        for category in categories:
-            category_filter |= Q(specialization__iexact=category)
-        search_results = search_results.filter(category_filter)
-
-    if rating:
-        search_results = search_results.filter(rating__gte=rating)
-
-    paginated_results = search_results.order_by('-rating').distinct()
-
-    # You may need to create a serializer for the Lawyer model
-    serialized_results = LawyerSerializer(paginated_results, many=True).data
-
-    return Response({'search_results': serialized_results})
 
 
 
@@ -49,7 +35,7 @@ def get_all_lawyers(request):
     queryset = Lawyer.objects.all()
     serializer = LawyerSerializer(queryset, many=True)
     return Response(serializer.data)
-    
+
 @api_view(['GET'])
 def get_lawyer_by_id(request, lawyer_id):
     try:
