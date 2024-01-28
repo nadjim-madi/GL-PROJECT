@@ -1,0 +1,46 @@
+{
+    "lawyers":[
+        {
+            "name": "amine djemmal",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat generale",
+            "id": 1,
+            "language": ["fr","an","ar","es"]
+        },
+        {
+             "name": "nadjim madi",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat specialise le droit penale",
+            "id": 2,
+            "language": ["fr","an","ar"]
+        },
+        {
+             "name": "khemari badreddine",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat specialise le droit de la femme",
+            "id": 3,
+            "language": ["fr","an","ar","es","kb"]
+        },
+        {
+             "name": "khemari badreddine",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat generale",
+            "id": 4,
+            "language": ["kb","fr","an","ar","es"]
+        },
+        {
+             "name": "khemari badreddine",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat specialise le droit penale",
+            "id": 5,
+            "language": ["fr","an","ar"]
+        },
+        {
+             "name": "khemari badreddine",
+            "description": "Why do we use it?\nIt is a long established fact that a reader will be distracted",
+            "activity": "avocat specialise le droit de la femme",
+            "id": 6,
+            "language": ["fr","an","ar","es"]
+        }
+    ]
+}
