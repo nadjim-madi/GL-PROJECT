@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     
     #user
     'user',
+    'drf_yasg',
 
     
 ]
